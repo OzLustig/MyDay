@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "901606883261",
+    "firebase_url": "https://myday-32ab4.firebaseio.com",
+    "project_id": "myday-32ab4",
+    "storage_bucket": "myday-32ab4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901606883261:android:0c93df65ac25e6d2815cd4",
+        "android_client_info": {
+          "package_name": "com.example.myday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901606883261-drigni0enjleiqu06tpmv0q1rrbedn3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myday",
+            "certificate_hash": "a6fd86746eb650d9597455bc1266f4b0746524a4"
+          }
+        },
+        {
+          "client_id": "901606883261-hs97lielkas1isd7utetghsu4bd8rspg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp7ddafUF4mmqJ2OlWGeM0aghUi-kyT64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901606883261-hs97lielkas1isd7utetghsu4bd8rspg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
