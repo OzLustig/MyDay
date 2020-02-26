@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,12 +56,12 @@ public class HomeActivity extends AppCompatActivity {
 //        Log.println(Log.INFO, "currentUser", currentUser.toString());
 
         updateUI(currentUser);
-        if (mAuth.getCurrentUser() != null) {
+        if (currentUser != null) {
             Log.println(Log.INFO, "FirebaseAuth sign in intent", "Already signed in.");
-            signIn("test@test.com", "testtest");
+            signIn("test1@test.com", "12345678");
         } else {
             Log.println(Log.INFO, "FirebaseAuth sign in intent", "A new / returning user.");
-            signUp("test@test.com", "testtest");
+            signUp("test1@test.com", "12345678");
         }
         setContentView(R.layout.activity_main);
 
@@ -97,14 +98,14 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-//        // Sign out
-//        AuthUI.getInstance()
-//                .signOut(this)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        Log.println(Log.INFO ,"MainActivity","Successfully signed out");
-//                    }
-//                });
+        // Sign out
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.println(Log.INFO ,"HomeActivity","Successfully signed out");
+                    }
+                });
 
             unregisterReceiver(mReceiver);
         }

@@ -40,7 +40,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        Log.i("test", "test");
 
         // Create and launch sign-in intent
         startActivityForResult(
