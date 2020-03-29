@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,20 +25,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class HomeActivity extends AppCompatActivity {
+    @OnClick(R.id.btn_exit) void submit() {
+        finish();
+        System.exit(0);
+    }
 
     RequestQueue requestQueue;
     FirebaseAuth mAuth;
@@ -46,15 +48,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
         // Initialize Firebase database.
         this.mAuth = FirebaseAuth.getInstance();
-        Log.println(Log.INFO, "mAuth", mAuth.toString());
-
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        Log.println(Log.INFO, "currentUser", currentUser.toString());
-
         updateUI(currentUser);
         if (currentUser != null) {
             Log.println(Log.INFO, "FirebaseAuth sign in intent", "Already signed in.");
@@ -63,7 +63,6 @@ public class HomeActivity extends AppCompatActivity {
             Log.println(Log.INFO, "FirebaseAuth sign in intent", "A new / returning user.");
             signUp("test1@test.com", "12345678");
         }
-        setContentView(R.layout.activity_main);
 
         // INITIALIZE RECEIVER
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
@@ -78,25 +77,21 @@ public class HomeActivity extends AppCompatActivity {
         this.morningRef = database.getReference("morning");
         initMorningTime();
 
-
          String name="empty";
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (currentUser != null) {
             // Name, email address, and profile photo Url
-            name = user.getDisplayName();
-            String email = user.getEmail();
-            Uri photoUrl = user.getPhotoUrl();
+            name = currentUser.getDisplayName();
+            String email = currentUser.getEmail();
+            Uri photoUrl = currentUser.getPhotoUrl();
 
             // Check if user's email is verified
-            boolean emailVerified = user.isEmailVerified();
+            boolean emailVerified = currentUser.isEmailVerified();
 
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
-            String uid = user.getUid();
-
-
-
+            String uid = currentUser.getUid();
+        }
 
         // Sign out
         AuthUI.getInstance()
@@ -109,7 +104,6 @@ public class HomeActivity extends AppCompatActivity {
 
             unregisterReceiver(mReceiver);
         }
-    }
 
 
 
